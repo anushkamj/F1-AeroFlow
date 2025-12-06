@@ -1,14 +1,20 @@
 import json
 import numpy as np
-
+import os
 
 def load_baseline_case(case_id="baseline_1", path="validation_data.json"):
     """
-    Loads CFD baseline case for comparison.
+    Loads CFD baseline case no matter where the script is run from.
     """
-    with open(path, "r") as f:
+    # directory of this file: /Users/anushka/F1-AeroFlow/pinn_module
+    module_dir = os.path.dirname(__file__)
+    file_path = os.path.join(module_dir, path)
+
+    with open(file_path, "r") as f:
         data = json.load(f)
+
     return data.get(case_id, None)
+
 
 
 def validate_against_cfd(pred_cd, pred_cl, baseline_cd, baseline_cl):
