@@ -1,14 +1,8 @@
 {
-    "angle_of_attack_deg": 12.5,
-    "mainplane_chord_mm": 350,
-    "flap_chord_mm": 120,
-    "thickness_ratio": 0.08,
-    "camber_ratio": 0.15,
-    "curvature_factor": 0.22,
-    "span_mm": 1200,
-    "aspect_ratio": 3.4,
-    "sweep_angle_deg": 15,
-    "twist_angle_deg": -2,
-    "endplate_height_mm": 500,
-    "endplate_length_mm": 300
+    "alpha_norm": 0.55,
+    "G_ratio": 0.40,
+    "C_main_norm": 0.85,
+    "lambda_ratio": 0.50,
+    "theta_flap": 12.0,
+    "tau_taper": 0.80
 }
