@@ -1,0 +1,13 @@
+Parameter,Case,Value,Cd,Cl
+alpha_norm,Min,0.0,0.045,0.42
+alpha_norm,Max,1.0,0.095,1.30
+G_ratio,Min,0.0,0.058,0.75
+G_ratio,Max,1.0,0.070,1.20
+C_main_norm,Min,0.50,0.050,0.60
+C_main_norm,Max,1.00,0.090,1.15
+lambda_ratio,Min,0.30,0.055,0.70
+lambda_ratio,Max,0.70,0.085,1.22
+theta_flap,Min,0,0.060,0.80
+theta_flap,Max,30,0.088,1.25
+tau_taper,Min,0.60,0.080,1.00
+tau_taper,Max,1.00,0.060,0.90
