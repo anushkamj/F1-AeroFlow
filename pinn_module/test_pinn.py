@@ -1,24 +1,23 @@
 import json
 from pinn_module import PINNSimulator, validate_against_cfd, load_baseline_case
 
-# Load sample aerodynamic parameters
+# Load sample aerodynamic parameters (6-parameter vector)
 with open("pinn_module/sample_params.json", "r") as f:
-    sample_params = json.load(f)
+    params = json.load(f)
 
-# Instantiate simulator
-sim = PINNSimulator()
+# Load simulator (real model only)
+sim = PINNSimulator(weights_path="pinn_weights.pth")
 
-# Run PINN prediction
-Cd, Cl = sim.simulate(sample_params)
+# Run simulation
+Cd, Cl = sim.simulate(params)
 
-print("\n--- PINN Simulation Results ---")
-print("Cd (drag coefficient):", Cd)
-print("Cl (lift coefficient):", Cl)
+print("\n--- PINN Output ---")
+print("Cd:", Cd)
+print("Cl:", Cl)
 
-# Load CFD baseline
+# Load CFD baseline for validation
 baseline = load_baseline_case("baseline_1")
 
-# Validation
 metrics = validate_against_cfd(
     pred_cd=Cd,
     pred_cl=Cl,
@@ -26,6 +25,5 @@ metrics = validate_against_cfd(
     baseline_cl=baseline["Cl"]
 )
 
-print("\n--- Validation vs CFD Baseline ---")
+print("\n--- Validation Metrics ---")
 print(metrics)
-print("\nSimulation complete.\n")
