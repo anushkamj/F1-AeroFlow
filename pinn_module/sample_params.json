@@ -1,14 +1,14 @@
 {
-    "param_0": 0.35,
-    "param_1": 0.62,
-    "param_2": 0.15,
-    "param_3": 0.48,
-    "param_4": 0.27,
-    "param_5": 0.73,
-    "param_6": 0.56,
-    "param_7": 0.81,
-    "param_8": 0.44,
-    "param_9": 0.33,
-    "param_10": 0.59,
-    "param_11": 0.21
+    "angle_of_attack_deg": 12.5,
+    "mainplane_chord_mm": 350,
+    "flap_chord_mm": 120,
+    "thickness_ratio": 0.08,
+    "camber_ratio": 0.15,
+    "curvature_factor": 0.22,
+    "span_mm": 1200,
+    "aspect_ratio": 3.4,
+    "sweep_angle_deg": 15,
+    "twist_angle_deg": -2,
+    "endplate_height_mm": 500,
+    "endplate_length_mm": 300
 }
