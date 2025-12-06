@@ -1,11 +1,11 @@
 def validate_against_cfd(pred_cd, pred_cl, baseline_cd, baseline_cl):
     """
-    Validation compares Cd and Cl predictions from REAL PINN inference
-    against reference CFD values.
+    Validate PINN Cd/Cl predictions against reference CFD values.
 
-    This version assumes inputs come from the 6-parameter rear wing space:
-        alpha_norm, G_ratio, C_main_norm, lambda_ratio, theta_flap, tau_taper
+    Assumes 6-param rear-wing inputs:
+    alpha_norm, G_ratio, C_main_norm, lambda_ratio, theta_flap, tau_taper.
     """
+
     cd_error = abs(pred_cd - baseline_cd)
     cl_error = abs(pred_cl - baseline_cl)
 

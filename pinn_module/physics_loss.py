@@ -10,11 +10,7 @@ def continuity_residual(u, v, x, y):
 
 
 def momentum_residual(u, v, p, x, y, rho=1.225, nu=1.5e-5):
-    """
-    Enforce Navier–Stokes in 2D steady-state:
-    u∂u/∂x + v∂u/∂y = -1/ρ ∂p/∂x + ν ∇²u
-    u∂v/∂x + v∂v/∂y = -1/ρ ∂p/∂y + ν ∇²v
-    """
+    # Enforce Navier–Stokes in 2D steady-state:
 
     du_dx = torch.autograd.grad(u, x, torch.ones_like(u), retain_graph=True, create_graph=True)[0]
     du_dy = torch.autograd.grad(u, y, torch.ones_like(u), retain_graph=True, create_graph=True)[0]
