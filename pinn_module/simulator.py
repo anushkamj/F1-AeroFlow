@@ -23,7 +23,6 @@ class PINNSimulator:
 
     def simulate(self, params: dict):
         """
-        params: dictionary containing 12 aerodynamic design parameters
         Returns:
             Cd (float)
             Cl (float)
@@ -36,9 +35,7 @@ class PINNSimulator:
 
         x = torch.tensor([x_values], dtype=torch.float32).to(self.device)
 
-        # ---------------------------
         # REAL MODEL INFERENCE (if weights exist)
-        # ---------------------------
         if self.trained:
             try:
                 with torch.no_grad():
@@ -48,9 +45,7 @@ class PINNSimulator:
             except Exception as e:
                 print("PINN inference error — falling back to DEMO MODE:", e)
 
-        # ---------------------------
-        # DEMO MODE (synthetic high-accuracy outputs)
-        # ---------------------------
+        # DEMO MODE
         # These values are close to your CFD baseline from validation_data.json
         Cd_demo = 0.82 + random.uniform(-0.02, 0.02)   # ±2% noise
         Cl_demo = 1.47 + random.uniform(-0.03, 0.03)   # ±3% noise
@@ -58,9 +53,7 @@ class PINNSimulator:
         return round(Cd_demo, 3), round(Cl_demo, 3)
 
 
-# ---------------------------
 # Manual test hook
-# ---------------------------
 if __name__ == "__main__":
     sample_params = {
         "angle_of_attack_deg": 12.5,

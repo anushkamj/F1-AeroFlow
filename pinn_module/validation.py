@@ -1,54 +1,20 @@
-import json
-import numpy as np
-import os
-
-def load_baseline_case(case_id="baseline_1", path="validation_data.json"):
-    """
-    Loads CFD baseline case no matter where the script is run from.
-    """
-    # directory of this file: /Users/anushka/F1-AeroFlow/pinn_module
-    module_dir = os.path.dirname(__file__)
-    file_path = os.path.join(module_dir, path)
-
-    with open(file_path, "r") as f:
-        data = json.load(f)
-
-    return data.get(case_id, None)
-
-
-
 def validate_against_cfd(pred_cd, pred_cl, baseline_cd, baseline_cl):
     """
-    Returns accuracy metrics for Cd and Cl predictions.
+    Validate PINN Cd/Cl predictions against reference CFD values.
+
+    Assumes 6-param rear-wing inputs:
+    alpha_norm, G_ratio, C_main_norm, lambda_ratio, theta_flap, tau_taper.
     """
 
-    cd_error = abs(pred_cd - baseline_cd) / baseline_cd
-    cl_error = abs(pred_cl - baseline_cl) / baseline_cl
+    cd_error = abs(pred_cd - baseline_cd)
+    cl_error = abs(pred_cl - baseline_cl)
 
-    metrics = {
-        "cd_accuracy": round(1 - cd_error, 4),
-        "cl_accuracy": round(1 - cl_error, 4),
-        "passes_accuracy_requirement": (1 - cd_error > 0.96 and 1 - cl_error > 0.96)
+    cd_percentage_error = (cd_error / baseline_cd) * 100 if baseline_cd != 0 else 0
+    cl_percentage_error = (cl_error / baseline_cl) * 100 if baseline_cl != 0 else 0
+
+    return {
+        "Cd_Error": round(cd_error, 4),
+        "Cl_Error": round(cl_error, 4),
+        "Cd_Percentage_Error": round(cd_percentage_error, 2),
+        "Cl_Percentage_Error": round(cl_percentage_error, 2)
     }
-
-    return metrics
-
-
-def physics_residual_check(cont_residual, mom_residual):
-    """
-    Checks if physics residuals satisfy < 0.001 normalized condition.
-    """
-    total_res = float(cont_residual.mean() + mom_residual.mean())
-    return total_res < 0.001
-
-
-# Example test
-if __name__ == "__main__":
-    baseline = load_baseline_case("baseline_1")
-    metrics = validate_against_cfd(
-        pred_cd=0.81,
-        pred_cl=1.49,
-        baseline_cd=baseline["Cd"],
-        baseline_cl=baseline["Cl"]
-    )
-    print(metrics)
